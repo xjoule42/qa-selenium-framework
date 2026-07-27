@@ -1,0 +1,35 @@
+# Virtual Environment
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Reports
+reports/html/*
+reports/screenshots/*
+reports/allure-results/*
+logs/*
+
+# Pytest
+.pytest_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Selenium
+*.log
