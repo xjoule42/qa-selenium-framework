@@ -47,6 +47,23 @@ class BasePage:
         """
         return self.wait.until_present(locator)
 
+    def find_elements(self, locator):
+        """
+        Find all elements matching the given locator.
+        """
+
+        logger.info(f"Finding elements: {locator}")
+        self.wait.until_present(locator)
+        return self.driver.find_elements(*locator)
+
+    def get_elements_count(self, locator) -> int:
+        """
+        Return the number of elements matching the locator.
+        """
+
+        return len(self.find_elements(locator))
+
+
     def click(self, locator) -> None:
         """
         Click on an Element.
@@ -130,3 +147,7 @@ class BasePage:
         """
 
         return self.driver.page_source
+
+    def has_url(self, expected_url: str) -> bool:
+        logger.info(f"Validating URL contains: {expected_url}")
+        return expected_url in self.driver.current_url
