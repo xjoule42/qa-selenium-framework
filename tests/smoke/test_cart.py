@@ -20,7 +20,7 @@ def test_cart_page(driver):
     login_page.open()
 
     login_page.login(
-        os.getenv("STANDARD_USER"),
+        os.getenv("STANDARD_USERNAME"),
         os.getenv("STANDARD_PASSWORD"),
     )
 

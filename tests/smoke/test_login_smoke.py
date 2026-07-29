@@ -17,7 +17,7 @@ def test_successful_login(driver):
     "The login page was not displayed"
 
     login_page.login(
-        os.getenv("STANDARD_USER"),
+        os.getenv("STANDARD_USERNAME"),
         os.getenv("STANDARD_PASSWORD"),
     )
 

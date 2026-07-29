@@ -17,7 +17,7 @@ def test_remove_product_from_cart(driver):
     login_page.open()
 
     login_page.login(
-        os.getenv("STANDARD_USER"),
+        os.getenv("STANDARD_USERNAME"),
         os.getenv("STANDARD_PASSWORD"),
     )
 

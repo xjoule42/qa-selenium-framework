@@ -16,7 +16,7 @@ def test_inventory_page_loads_successfully(driver):
     login_page.open()
 
     login_page.login(
-        os.getenv("STANDARD_USER"),
+        os.getenv("STANDARD_USERNAME"),
         os.getenv("STANDARD_PASSWORD"),
     )
 
