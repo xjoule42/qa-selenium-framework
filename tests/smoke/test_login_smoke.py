@@ -1,4 +1,5 @@
 import pytest
+import os
 
 from src.pages.login_page import LoginPage
 
@@ -16,8 +17,8 @@ def test_successful_login(driver):
     "The login page was not displayed"
 
     login_page.login(
-        username="standard_user",
-        password="secret_sauce"
+        os.getenv("STANDARD_USER"),
+        os.getenv("STANDARD_PASSWORD"),
     )
 
     assert "inventory" in login_page.get_current_url(), \

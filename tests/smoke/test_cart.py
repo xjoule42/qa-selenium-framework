@@ -1,4 +1,5 @@
 import pytest
+import os
 
 from src.pages.cart_page import CartPage
 from src.pages.inventory_page import InventoryPage
@@ -19,8 +20,8 @@ def test_cart_page(driver):
     login_page.open()
 
     login_page.login(
-        username="standard_user",
-        password="secret_sauce",
+        os.getenv("STANDARD_USER"),
+        os.getenv("STANDARD_PASSWORD"),
     )
 
     assert inventory_page.is_inventory_page(), (

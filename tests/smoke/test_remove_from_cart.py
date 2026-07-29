@@ -1,4 +1,5 @@
 import pytest
+import os
 
 from src.pages.inventory_page import InventoryPage
 from src.pages.login_page import LoginPage
@@ -16,8 +17,8 @@ def test_remove_product_from_cart(driver):
     login_page.open()
 
     login_page.login(
-        username="standard_user",
-        password="secret_sauce",
+        os.getenv("STANDARD_USER"),
+        os.getenv("STANDARD_PASSWORD"),
     )
 
     assert inventory_page.is_inventory_page(), (

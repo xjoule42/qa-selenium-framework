@@ -1,7 +1,8 @@
 import pytest
-
+import os
 from src.pages.inventory_page import InventoryPage
 from src.pages.login_page import LoginPage
+
 
 
 @pytest.mark.smoke
@@ -16,8 +17,8 @@ def test_add_product_to_cart(driver):
     login_page.open()
 
     login_page.login(
-        username="standard_user",
-        password="secret_sauce",
+        os.getenv("STANDARD_USERNAME"),
+        os.getenv("STANDARD_PASSWORD"),
     )
 
     assert inventory_page.is_inventory_page(), (
