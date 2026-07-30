@@ -129,6 +129,10 @@ class BasePage:
 
         element.send_keys(text)
 
+        print("ACTIVE:", self.driver.switch_to.active_element.get_attribute("id"))
+        print("CURRENT:", element.get_attribute("id"))
+        print("VALUE:", repr(element.get_attribute("value")))
+
         value = element.get_attribute("value")
 
         print(f"{locator} -> {repr(value)}")
