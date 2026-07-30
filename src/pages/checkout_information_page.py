@@ -28,12 +28,29 @@ class CheckoutInformationPage(BasePage):
         )
 
     def continue_checkout(self) -> None:
+
         self.click(
             CheckoutInformationLocators.CONTINUE_BUTTON
         )
-        self.wait.until_url_contains(
-            "checkout-step-two.html"
+
+        try:
+            self.wait.until_url_contains(
+                "checkout-step-two.html"
             )
+
+        except TimeoutException:
+
+            if self.is_visible(
+                CheckoutInformationLocators.ERROR_MESSAGE
+            ):
+                print(
+                    "Checkout Error:",
+                    self.get_text(
+                        CheckoutInformationLocators.ERROR_MESSAGE
+                    )
+                )
+
+            raise
 
     def cancel_checkout(self) -> None:
         self.click(
