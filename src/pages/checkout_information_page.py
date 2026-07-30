@@ -1,6 +1,7 @@
 from src.pages.base_page import BasePage
 from src.locators.checkout_information_locators import CheckoutInformationLocators
 from selenium.common.exceptions import TimeoutException
+import time
 
 class CheckoutInformationPage(BasePage):
 
@@ -59,10 +60,14 @@ class CheckoutInformationPage(BasePage):
         )
 
     def fill_checkout_information(
-            self,
-            first_name: str,
-            last_name: str,
-            postal_code: str) -> None:
+        self,
+        first_name: str,
+        last_name: str,
+        postal_code: str,
+    ) -> None:
+
+        time.sleep(1)
+
         self.fill_first_name(first_name)
         self.fill_last_name(last_name)
         self.fill_postal_code(postal_code)
