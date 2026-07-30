@@ -128,7 +128,11 @@ class BasePage:
         element.send_keys(Keys.CONTROL, "a")
         element.send_keys(Keys.DELETE)
 
-        element.send_keys(text)
+        self.driver.execute_script("""
+            arguments[0].value = arguments[1];
+            arguments[0].dispatchEvent(new Event('input', { bubbles: true }));
+            arguments[0].dispatchEvent(new Event('change', { bubbles: true }));
+            """, element, text)
 
         print("ACTIVE:", self.driver.switch_to.active_element.get_attribute("id"))
         print("CURRENT:", element.get_attribute("id"))

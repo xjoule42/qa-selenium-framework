@@ -154,11 +154,6 @@ class DriverFactory:
             },
         )
 
-        options.add_experimental_option(
-            "excludeSwitches",
-            ["enable-automation"]
-        )
-
 
     @staticmethod
     def _create_chrome_options() -> ChromeOptions:
