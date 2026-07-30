@@ -16,6 +16,8 @@ jobs:
     
     env:
       HEADLESS: "true"
+      STANDARD_USERNAME: ${{ secrets.STANDARD_USERNAME }}
+      STANDARD_PASSWORD: ${{ secrets.STANDARD_PASSWORD }}
 
     steps:
       - name: Checkout repository
