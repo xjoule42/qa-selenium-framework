@@ -117,13 +117,24 @@ class BasePage:
         raise last_exception
 
     def type(self, locator, text: str) -> None:
-        logger.info(f"Typing into element:{locator}")
-        element = self.wait.until_visible(locator)
+        logger.info(f"Typing into element: {locator}")
 
+        element = self.wait.until_clickable(locator)
+
+        element.click()
         element.clear()
+
+        # Volver a localizar por si el DOM cambió
+        element = self.wait.until_clickable(locator)
+
         element.send_keys(text)
-        print(
-            f"{locator} -> {repr(element.get_attribute('value'))}"
+
+        value = element.get_attribute("value")
+
+        print(f"{locator} -> {repr(value)}")
+
+        assert value == text, (
+            f"Input {locator} expected '{text}' but got '{value}'"
         )
 
     def clear(self, locator) -> None:
