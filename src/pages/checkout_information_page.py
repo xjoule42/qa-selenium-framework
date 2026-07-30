@@ -1,5 +1,6 @@
 from src.pages.base_page import BasePage
 from src.locators.checkout_information_locators import CheckoutInformationLocators
+from selenium.common.exceptions import TimeoutException
 
 class CheckoutInformationPage(BasePage):
 
