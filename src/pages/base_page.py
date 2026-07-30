@@ -7,7 +7,11 @@ from src.core.logger import Logger
 from src.core.waits import Waits
 from selenium.common.exceptions import TimeoutException
 from typing import Optional
-
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import (
+    StaleElementReferenceException,
+    ElementClickInterceptedException,
+)
 
 logger = Logger.get_logger(__name__)
 
@@ -65,21 +69,49 @@ class BasePage:
 
 
     def click(self, locator) -> None:
+        """
+        Click an element with a retry to reduce flaky failures
+        in Chrome Headless / CI environments.
+        """
+
         logger.info(f"Clicking element: {locator}")
 
-        element = self.wait.until_clickable(locator)
+        last_exception = None
 
-        print("Enabled:", element.is_enabled())
-        print("Displayed:", element.is_displayed())
+        for attempt in range(2):
 
-        self.driver.execute_script(
-            "arguments[0].scrollIntoView({block:'center'});",
-            element
-        )
+            try:
+                element = self.wait.until_clickable(locator)
 
-        element.click()
+                print(f"Click attempt: {attempt + 1}")
+                print("Enabled:", element.is_enabled())
+                print("Displayed:", element.is_displayed())
 
-        print("URL after click:", self.driver.current_url)
+                self.driver.execute_script(
+                    "arguments[0].scrollIntoView({block:'center'});",
+                    element
+                )
+
+                element.click()
+
+                print("URL after click:", self.driver.current_url)
+
+                # Si el click fue exitoso, salir.
+                return
+
+            except (
+                StaleElementReferenceException,
+                ElementClickInterceptedException
+            ) as e:
+
+                logger.warning(
+                    f"Click failed (attempt {attempt + 1}), retrying..."
+                )
+
+                last_exception = e
+
+        # Si ambos intentos fallan, lanzar la excepción original
+        raise last_exception
 
     def type(self, locator, text: str) -> None:
         logger.info(f"Typing into element:{locator}")
