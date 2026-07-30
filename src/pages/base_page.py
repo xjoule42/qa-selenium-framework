@@ -122,6 +122,9 @@ class BasePage:
 
         element.clear()
         element.send_keys(text)
+        print(
+            f"{locator} -> {repr(element.get_attribute('value'))}"
+        )
 
     def clear(self, locator) -> None:
         self.wait.until_visible(locator).clear()
