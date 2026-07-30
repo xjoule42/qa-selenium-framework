@@ -52,7 +52,9 @@ def test_checkout_information(driver):
     )
 
     checkout_information_page.continue_checkout()
-    print(driver.current_url)
+    print(f"Current URL: {driver.current_url}")
+    print(f"Page Title: {driver.title}")
+    print(driver.page_source[:500])
     assert checkout_information_page.has_url(
         "checkout-step-two.html"
     ), (

@@ -7,12 +7,16 @@ from src.locators.checkout_overview_locators import (
 class CheckoutOverviewPage(BasePage):
 
     def is_checkout_overview_page(self) -> bool:
-        return (
-            self.is_visible(
-                CheckoutOverviewLocators.PAGE_TITLE
-            )
-            and self.has_url("checkout-step-two.html")
+        visible = self.is_visible(
+            CheckoutOverviewLocators.PAGE_TITLE
         )
+
+        url = self.has_url("checkout-step-two.html")
+
+        print(f"VISIBLE = {visible}")
+        print(f"URL = {url}")
+
+        return visible and url
 
     def get_cart_items_count(self) -> int:
         return self.get_elements_count(
@@ -37,6 +41,9 @@ class CheckoutOverviewPage(BasePage):
     def finish_checkout(self) -> None:
         self.click(
             CheckoutOverviewLocators.FINISH_BUTTON
+        )
+        self.wait.until_url_contains(
+            "checkout-complete.html"
         )
 
     def cancel_checkout(self) -> None:

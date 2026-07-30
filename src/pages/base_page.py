@@ -149,5 +149,11 @@ class BasePage:
         return self.driver.page_source
 
     def has_url(self, expected_url: str) -> bool:
+        current = self.driver.current_url
+
+        print(f"EXPECTED URL PART: {expected_url}")
+        print(f"CURRENT URL: {current}")
+
         logger.info(f"Validating URL contains: {expected_url}")
-        return expected_url in self.driver.current_url
+
+        return expected_url in current

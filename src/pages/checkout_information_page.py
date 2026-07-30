@@ -31,6 +31,9 @@ class CheckoutInformationPage(BasePage):
         self.click(
             CheckoutInformationLocators.CONTINUE_BUTTON
         )
+        self.wait.until_url_contains(
+            "checkout-step-two.html"
+            )
 
     def cancel_checkout(self) -> None:
         self.click(

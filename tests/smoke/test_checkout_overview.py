@@ -48,7 +48,9 @@ def test_checkout_overview(driver):
     )
 
     checkout_information_page.continue_checkout()
-
+    print(type(cart_page))
+    print(hasattr(cart_page, "has_url"))
+    print(dir(cart_page))
     assert checkout_overview_page.is_checkout_overview_page(), (
         "Checkout Overview page should be displayed."
     )
