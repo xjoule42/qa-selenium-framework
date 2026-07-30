@@ -92,7 +92,10 @@ class BasePage:
                     element
                 )
 
-                element.click()
+                self.driver.execute_script(
+                    "arguments[0].click();",
+                    element
+                )
 
                 print("URL after click:", self.driver.current_url)
 
