@@ -65,11 +65,21 @@ class BasePage:
 
 
     def click(self, locator) -> None:
-        """
-        Click on an Element.
-        """
         logger.info(f"Clicking element: {locator}")
-        self.wait.until_clickable(locator).click()
+
+        element = self.wait.until_clickable(locator)
+
+        print("Enabled:", element.is_enabled())
+        print("Displayed:", element.is_displayed())
+
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView({block:'center'});",
+            element
+        )
+
+        element.click()
+
+        print("URL after click:", self.driver.current_url)
 
     def type(self, locator, text: str) -> None:
         logger.info(f"Typing into element:{locator}")
