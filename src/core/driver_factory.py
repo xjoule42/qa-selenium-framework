@@ -160,11 +160,6 @@ class DriverFactory:
             ["enable-automation"]
         )
 
-        options.add_experimental_option(
-            "userAutomationExtension",
-            False
-        )
-
 
     @staticmethod
     def _create_chrome_options() -> ChromeOptions:
