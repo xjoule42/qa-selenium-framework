@@ -12,6 +12,7 @@ from selenium.common.exceptions import (
     StaleElementReferenceException,
     ElementClickInterceptedException,
 )
+from selenium.webdriver.common.keys import Keys
 
 logger = Logger.get_logger(__name__)
 
@@ -122,10 +123,10 @@ class BasePage:
         element = self.wait.until_clickable(locator)
 
         element.click()
-        element.clear()
 
-        # Volver a localizar por si el DOM cambió
-        element = self.wait.until_clickable(locator)
+        # En lugar de clear()
+        element.send_keys(Keys.CONTROL, "a")
+        element.send_keys(Keys.DELETE)
 
         element.send_keys(text)
 
