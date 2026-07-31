@@ -176,12 +176,6 @@ pip install -r requirements.txt
 
 ---
 
-## Test Report
-
-![HTML Report](docs/images/html-report.png)
-
-
----
 
 # Environment Variables
 
