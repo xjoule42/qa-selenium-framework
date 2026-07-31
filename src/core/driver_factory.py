@@ -133,6 +133,7 @@ class DriverFactory:
         if Config.HEADLESS:
                 
                 options.add_argument("--headless=new")
+                options.add_argument("--incognito")
 
                 options.add_argument("--window-size=1920,1080")
 
@@ -140,6 +141,17 @@ class DriverFactory:
                 options.add_argument("--disable-popup-blocking")
                 options.add_argument("--disable-infobars")
                 options.add_argument("--disable-extensions")
+                options.add_argument("--disable-features=PasswordLeakDetection")
+                options.add_argument("--disable-save-password-bubble")
+                options.add_experimental_option(
+                    "prefs",
+                    {
+                        "credentials_enable_service": False,
+                        "profile.password_manager_enabled": False,
+                    },
+                )
+
+                options.add_argument("--disable-features=PasswordLeakDetection")
 
                 # Required for GitHub Actions / Linux CI
                 options.add_argument("--no-sandbox")
@@ -158,6 +170,11 @@ class DriverFactory:
         options.add_experimental_option(
             "excludeSwitches",
             ["enable-automation"]
+        )
+
+        options.add_experimental_option(
+            "useAutomationExtension",
+            False
         )
 
 

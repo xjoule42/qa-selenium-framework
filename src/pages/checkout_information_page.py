@@ -1,5 +1,7 @@
 from src.pages.base_page import BasePage
 from src.locators.checkout_information_locators import CheckoutInformationLocators
+from selenium.common.exceptions import NoSuchElementException
+
 
 class CheckoutInformationPage(BasePage):
 
@@ -27,14 +29,27 @@ class CheckoutInformationPage(BasePage):
             postal_code
         )
 
-    def continue_checkout(self) -> None:
+    def continue_checkout(self):
+
         self.click(
             CheckoutInformationLocators.CONTINUE_BUTTON
         )
-        self.wait.until_url_contains(
-            "checkout-step-two.html"
+
+        print(f"URL: {self.driver.current_url}")
+
+        try:
+            error = self.driver.find_element(
+                *CheckoutInformationLocators.ERROR_MESSAGE
             )
 
+            print(f"Checkout error: {error.text}")
+
+        except NoSuchElementException:
+            print("No checkout error found.")
+
+        self.wait.until_url_contains(
+            "checkout-step-two.html"
+        )
     def cancel_checkout(self) -> None:
         self.click(
             CheckoutInformationLocators.CANCEL_BUTTON
@@ -48,3 +63,14 @@ class CheckoutInformationPage(BasePage):
         self.fill_first_name(first_name)
         self.fill_last_name(last_name)
         self.fill_postal_code(postal_code)
+
+    def get_checkout_error(self):
+
+        if self.is_visible(
+            CheckoutInformationLocators.ERROR_MESSAGE
+        ):
+            return self.get_text(
+                CheckoutInformationLocators.ERROR_MESSAGE
+            )
+
+        return None

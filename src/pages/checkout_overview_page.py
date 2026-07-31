@@ -42,6 +42,10 @@ class CheckoutOverviewPage(BasePage):
         self.click(
             CheckoutOverviewLocators.FINISH_BUTTON
         )
+
+        print("AFTER CLICK:", self.driver.current_url)
+        print(self.driver.page_source)
+
         self.wait.until_url_contains(
             "checkout-complete.html"
         )

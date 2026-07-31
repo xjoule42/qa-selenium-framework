@@ -5,7 +5,10 @@ from selenium.webdriver.remote.webelement import WebElement
 from config.config import Config
 from src.core.logger import Logger
 from src.core.waits import Waits
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import (
+    TimeoutException,
+    StaleElementReferenceException,
+    )
 from typing import Optional
 
 
@@ -64,24 +67,65 @@ class BasePage:
         return len(self.find_elements(locator))
 
 
-    def click(self, locator) -> None:
-        """
-        Click on an Element.
-        """
-        logger.info(f"Clicking element: {locator}")
-        self.wait.until_clickable(locator).click()
+    def click(self, locator):
+        element = self.wait.until_clickable(locator)
 
-    def type(self, locator, text: str) -> None:
-        logger.info(f"Typing into element:{locator}")
-        element = self.wait.until_visible(locator)
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView({block:'center'});",
+            element
+        )
+        
+        self.driver.execute_script(
+            "arguments[0].click();",
+            element
+        )
+
+        
+    def type(self, locator, text: str, verify: bool = True) -> None:
+        """
+        Clear an input and type text into it.
+        """
+
+        logger.info(f"Typing '{text}' into {locator}")
+
+        element = self.wait.until_clickable(locator)
 
         element.clear()
+
+        print("AFTER CLEAR:", element.get_attribute("value"))
+
         element.send_keys(text)
 
+        print("AFTER SEND_KEYS:", element.get_attribute("value"))
+
+        current = element.get_attribute("value")
+
+        logger.info(f"Current input value: '{current}'")
+
+        if current == text:
+            return
+
+        logger.error(
+            f"Unable to type '{text}' after retries."
+        )
+        
+        raise AssertionError(
+            f"Input value mismatch. Expected '{text}', got '{current}'"
+        )
+
     def clear(self, locator) -> None:
-        self.wait.until_visible(locator).clear()
+        """
+        Clear an input field.
+        """
+
+        logger.info(f"Clearing element: {locator}")
+
+        self.wait.until_clickable(locator).clear()
 
     def get_text(self, locator) -> str:
+        """
+        Return visible text.
+        """
         return self.wait.until_visible(locator).text
 
     def get_attribute(
@@ -89,6 +133,9 @@ class BasePage:
             locator,
             attribute: str
             ) -> Optional[str]:
+        """
+        Return an attribute from an element.
+        """
         return self.wait.until_visible(locator).get_attribute(attribute)
 
     # ---------------------------------------------------------
