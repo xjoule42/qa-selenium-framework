@@ -1,5 +1,13 @@
 # Python Selenium Automation Framework
 
+![Python](https://img.shields.io/badge/Python-3.13-blue?logo=python)
+![Selenium](https://img.shields.io/badge/Selenium-4.x-43B02A?logo=selenium)
+![Pytest](https://img.shields.io/badge/Pytest-Framework-0A9EDC?logo=pytest)
+![GitHub Actions](https://img.shields.io/github/actions/workflow/status/xjoule42/qa-selenium-framework/ui-tests.yml?branch=main&label=CI&logo=githubactions)
+![Release](https://img.shields.io/github/v/release/xjoule42/qa-selenium-framework)
+![License](https://img.shields.io/github/license/xjoule42/qa-selenium-framework)
+
+
 A scalable UI test automation framework built with **Python**, **Selenium**, and **Pytest**, following the **Page Object Model (POM)** design pattern. This project showcases clean architecture, reusable automation components, explicit waits, structured logging, and industry best practices for web UI testing.
 
 ---
@@ -165,6 +173,13 @@ Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
+
+---
+
+## Test Report
+
+![HTML Report](docs/images/html-report.png)
+
 
 ---
 
