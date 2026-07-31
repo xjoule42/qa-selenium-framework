@@ -141,8 +141,10 @@ class DriverFactory:
                 options.add_argument("--disable-popup-blocking")
                 options.add_argument("--disable-infobars")
                 options.add_argument("--disable-extensions")
+
                 options.add_argument("--disable-features=PasswordLeakDetection")
                 options.add_argument("--disable-save-password-bubble")
+
                 options.add_experimental_option(
                     "prefs",
                     {
@@ -151,12 +153,11 @@ class DriverFactory:
                     },
                 )
 
-                options.add_argument("--disable-features=PasswordLeakDetection")
 
-                # Required for GitHub Actions / Linux CI
-                options.add_argument("--no-sandbox")
-                options.add_argument("--disable-dev-shm-usage")
-                options.add_argument("--disable-gpu")
+        # Required for GitHub Actions / Linux CI
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-gpu")
 
 
         options.add_experimental_option(
@@ -167,6 +168,7 @@ class DriverFactory:
             },
         )
 
+<<<<<<< HEAD
         options.add_experimental_option(
             "excludeSwitches",
             ["enable-automation"]
@@ -177,6 +179,8 @@ class DriverFactory:
             False
         )
 
+=======
+>>>>>>> origin/main
 
     @staticmethod
     def _create_chrome_options() -> ChromeOptions:

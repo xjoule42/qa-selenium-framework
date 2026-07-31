@@ -29,13 +29,13 @@ class CheckoutInformationPage(BasePage):
             postal_code
         )
 
-    def continue_checkout(self):
+    def continue_checkout(self) -> None:
 
         self.click(
             CheckoutInformationLocators.CONTINUE_BUTTON
         )
 
-        print(f"URL: {self.driver.current_url}")
+        
 
         try:
             error = self.driver.find_element(
@@ -56,10 +56,14 @@ class CheckoutInformationPage(BasePage):
         )
 
     def fill_checkout_information(
-            self,
-            first_name: str,
-            last_name: str,
-            postal_code: str) -> None:
+        self,
+        first_name: str,
+        last_name: str,
+        postal_code: str,
+    ) -> None:
+
+        time.sleep(1)
+
         self.fill_first_name(first_name)
         self.fill_last_name(last_name)
         self.fill_postal_code(postal_code)

@@ -70,6 +70,7 @@ class InventoryPage(BasePage):
         """
 
         self.click(InventoryLocators.SHOPPING_CART_LINK)
+        self.wait.until_url_contains("cart.html")
 
     def get_cart_badge_count(self) -> int:
         """

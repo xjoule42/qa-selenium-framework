@@ -10,7 +10,12 @@ from selenium.common.exceptions import (
     StaleElementReferenceException,
     )
 from typing import Optional
-
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import (
+    StaleElementReferenceException,
+    ElementClickInterceptedException,
+)
+from selenium.webdriver.common.keys import Keys
 
 logger = Logger.get_logger(__name__)
 
@@ -68,6 +73,11 @@ class BasePage:
 
 
     def click(self, locator):
+        """
+        Click on an element.
+        """
+        logger.info(f"Clicking element:{locator}")
+
         element = self.wait.until_clickable(locator)
 
         self.driver.execute_script(
@@ -91,8 +101,6 @@ class BasePage:
         element = self.wait.until_clickable(locator)
 
         element.clear()
-
-        print("AFTER CLEAR:", element.get_attribute("value"))
 
         element.send_keys(text)
 
